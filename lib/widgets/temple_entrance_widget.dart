@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mayan_level1/effects/reward_rotating.dart';
+import 'package:mayan_level1/text_style.dart';
 
 class TempleEntranceWidget extends StatelessWidget {
   const TempleEntranceWidget({super.key});
@@ -16,20 +18,19 @@ class TempleEntranceWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text("Well Done!",
-              style: TextStyle(color: Colors.white, fontSize: 18),
-              textAlign: TextAlign.center),
-          Text("You are Un Lock The Temple Interior Now!",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center),
-          SizedBox(height: 20),
+              style: headingTextStyle, textAlign: TextAlign.center),
+          RewardRotating(),
+          SizedBox(
+            height: 20,
+          ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/temple'); // Navigate to entrance
+              Navigator.pushNamed(context, '/interior'); // Navigate to entrance
             },
-            child: Text("Enter the Temple Interior"),
+            child: Text(
+              "Enter the Temple Interior",
+              style: elevatedButtonTextStyle,
+            ),
           ),
         ],
       ),

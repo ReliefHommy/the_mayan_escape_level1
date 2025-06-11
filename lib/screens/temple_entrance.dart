@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mayan_level1/managers/game_state_manager.dart';
-import 'package:mayan_level1/puzzles/puzzle_rotate_stone.dart';
-import 'package:mayan_level1/widgets/temple_entrance_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:mayan_level1/effects/rotating_hint.dart';
+import 'package:mayan_level1/widgets/temple_entrance_widget.dart';
+import '../../../game_state_maneger.dart';
+import '../../../widgets/puzzle_rotate_stone.dart';
 
 class TempleEntrance extends StatefulWidget {
   final Map<String, String> inventoryIcons = {};
@@ -15,6 +16,7 @@ class TempleEntrance extends StatefulWidget {
 class _TempleEntranceState extends State<TempleEntrance> {
   String? selectedPuzzle;
   final List<String> requiredItems = [];
+
   bool hasAllRequiredItems(BuildContext context) {
     final gameState = context.watch<GameStateManager>();
     return requiredItems.every(gameState.hasItem);
@@ -26,26 +28,35 @@ class _TempleEntranceState extends State<TempleEntrance> {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
+          // Background  desktop
           Positioned.fill(
+              child: Image.asset(
+            'assets/images/rotating_scene_bg.jpg', // your decorative image
+            fit: BoxFit.cover,
+          )),
+          //Background scens
+          Positioned.fill(
+              child: Center(
+                  child: SizedBox(
+            width: 500,
             child: Image.asset(
-              'assets/images/temple_entrance.jpg', // Your background image
-              //width: 565,
-              //height: 870,
+              'assets/images/rotating_scene_bg.jpg',
               fit: BoxFit.cover,
             ),
-          ),
+          ))),
 
           // ---Rotating Stone Dial--
 
           Positioned(
             //top: 400,
             //left: 150,
-            top: screenHeight * 0.40, // 40% from the top
-            left: screenWidth * 0.15, // 15% from the left
+            top: screenHeight * 0.30, // 30% from the top
+            left: screenWidth * 0.20,
             child: Tooltip(
-              message: "Rotating Stone Dial to Open the Door! ",
+              message: "Rotating Stone Dial",
               child: GestureDetector(
                 onTap: () {
                   showDialog(
@@ -57,7 +68,7 @@ class _TempleEntranceState extends State<TempleEntrance> {
                           }));
                 },
                 child: Image.asset(
-                  'assets/icons/rotating_stone.png',
+                  'assets/icons/rotating_stone_icon.png',
                   width: 80,
                   height: 80,
                 ),
@@ -65,52 +76,63 @@ class _TempleEntranceState extends State<TempleEntrance> {
             ),
           ),
 
+          Positioned(
+              top: screenHeight * 0.30, // 30% from the top
+              left: screenWidth * 0.30, //
+              child: Column(
+                children: [RotatingHint()],
+              )),
+//PuzzleHintWidget(),
           //  Inventory Bar at the Bottom
 
           Positioned(
-            bottom: 20,
-            left: 20,
-            right: 20,
-            child: Container(
-              height: 80,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children:
-                    context.watch<GameStateManager>().inventory.map((item) {
-                  final iconPath = widget.inventoryIcons[item] ??
-                      'assets/icons/${item.toLowerCase().replaceAll(" ", "_")}.png';
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Container(
-                      width: 60,
-                      height: 60,
-                      padding: EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        color: Colors.brown.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.brown, width: 2),
-                      ),
-                      child: Image.asset(
-                        iconPath,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
+              bottom: 30,
+              left: 20,
+              right: 20,
+              child: Tooltip(
+                message:
+                    "There're a mechanism hidden in the Rotating Stone Dial!",
+                child: Container(
+                  height: 80,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children:
+                        context.watch<GameStateManager>().inventory.map((item) {
+                      final iconPath = widget.inventoryIcons[item] ??
+                          'assets/icons/${item.toLowerCase().replaceAll(" ", "_")}.png';
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          padding: EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            color: Colors.brown.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.brown, width: 2),
+                          ),
+                          child: Image.asset(
+                            iconPath,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              )),
+          //if (context.watch<GameStateManager>().isPuzzleSolved('animal_glyph'))
           if (context
               .watch<GameStateManager>()
               .isPuzzleSolved('rotating_stone_dial'))
-            Positioned.fill(
-              top: 200,
-              left: 100,
+            Positioned(
+              bottom: screenHeight * 0.20,
+              left: screenWidth * 0.40,
               child: Column(
                 children: [
                   TempleEntranceWidget(),

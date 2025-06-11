@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:mayan_level1/widgets/jungle_entrance_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:mayan_level1/managers/game_state_manager.dart';
+import 'package:mayan_level1/effects/inventory_hint.dart';
+import 'package:mayan_level1/fade_scene_transit.dart';
+import 'package:mayan_level1/game_state_maneger.dart';
+import 'package:mayan_level1/widgets/jungle_entrance_widget.dart';
 
 class JungleEntrance extends StatefulWidget {
   final Map<String, String> inventoryIcons = {};
-  JungleEntrance({super.key});
+  JungleEntrance(
+      {super.key,
+      required List inventory,
+      required Null Function(dynamic item) onItemCollected,
+      required Function() hasAllRequiredItemsExternal});
 
   @override
   State<JungleEntrance> createState() => _JungleEntranceState();
@@ -18,10 +24,29 @@ class _JungleEntranceState extends State<JungleEntrance> {
     'Feathered Serpent Statue',
     'Torch'
   ];
+
+  get player => null;
   bool hasAllRequiredItems(BuildContext context) {
     final gameState = context.watch<GameStateManager>();
     return requiredItems.every(gameState.hasItem);
   }
+
+  //
+  void fadeToScene(BuildContext context, Widget nextScene) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 800),
+        pageBuilder: (context, animation, secondaryAnimation) => nextScene,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+//
 
   @override
   Widget build(BuildContext context) {
@@ -29,27 +54,35 @@ class _JungleEntranceState extends State<JungleEntrance> {
     final double screenHeight = MediaQuery.of(context).size.height;
     context.watch<GameStateManager>();
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // Temple Entrance Background
+          // Background  desktop
           Positioned.fill(
+              child: Image.asset(
+            'assets/images/inventory_scene_bg.jpg', // your decorative image
+            fit: BoxFit.cover,
+          )),
+          //Background scens
+          Positioned.fill(
+              child: Center(
+                  child: SizedBox(
+            width: 500,
             child: Image.asset(
-              'assets/images/jungle_entrance.jpg',
-              //width: 565,
-              //height: 870,
-              fit: BoxFit.cover, // Fills the screen proportionally
+              'assets/images/inventory_scene_bg.jpg',
+              fit: BoxFit.cover,
             ),
-          ),
+          ))),
 
           // -Inventory-1 :Ceremonial Dagger - Collect Item
           if (!context
               .watch<GameStateManager>()
               .hasItem('Ceremonial Dagger')) //Remove image from scene
             Positioned(
-              top: screenHeight * 0.30, // 30% from the top
-              left: screenWidth * 0.10, // 10% from the left
+              top: screenHeight * 0.55, // 30% from the top
+              left: screenWidth * 0.20, // 10% from the left
               child: Tooltip(
-                message: "Ceremonial Dagger-Cut the vines",
+                message: "Collect a Ceremonial Dagger!",
                 child: GestureDetector(
                   onTap: () {
                     context
@@ -68,26 +101,44 @@ class _JungleEntranceState extends State<JungleEntrance> {
                 ),
               ),
             ),
+          if (!context
+              .watch<GameStateManager>()
+              .hasItem('Ceremonial Dagger')) //Remove image from scene
+            Positioned(
+                top: screenHeight * 0.40, // 30% from the top
+                left: screenWidth * 0.10, //
+                child: Column(
+                  children: [InventoryHint()],
+                )),
+
           // --Inventory-2 :A Torch - Collect Item
           if (!context
               .watch<GameStateManager>()
               .hasItem('Torch')) //Remove image from scene
             Positioned(
-              top: screenHeight * 0.16,
-              left: screenWidth * 0.38,
+              top: screenHeight * 0.55,
+              left: screenWidth * 0.10,
               child: Tooltip(
-                message: "Torch-Ligh up the dark",
+                message: "Collect a Torch!",
                 child: GestureDetector(
-                  child: Image.asset(
-                    'assets/icons/torch.png',
-                    width: 80,
-                    height: 80,
+                  //
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      'assets/icons/torch.png',
+                      width: 80,
+                      height: 80,
+                    ),
                   ),
+                  //
+
                   onTap: () {
                     context.read<GameStateManager>().collectItem('Torch');
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('You collected A Torch!')),
                     );
+
+                    // your original logic
                   },
                 ),
               ),
@@ -97,79 +148,94 @@ class _JungleEntranceState extends State<JungleEntrance> {
               .watch<GameStateManager>()
               .hasItem('Feathered Serpent Statue')) //Remove image from scene
             Positioned(
-              top: screenHeight * 0.60,
-              left: screenWidth * 0.75,
+              top: screenHeight * 0.70,
+              left: screenWidth * 0.10,
               child: Tooltip(
-                message: "Feathered Serpent Statue",
+                message: "Collect a Feathered Serpent Statue!",
                 child: GestureDetector(
-                  onTap: () {
-                    context
-                        .read<GameStateManager>()
-                        .collectItem('Feathered Serpent Statue');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: Text(
-                              'You collected the Feathered Serpent Statue!')),
-                    );
-                  },
-                  child: Image.asset(
-                    'assets/icons/feathered_serpent_statue.png',
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
+                    onTap: () {
+                      context
+                          .read<GameStateManager>()
+                          .collectItem('Feathered Serpent Statue');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text(
+                                'You collected the Feathered Serpent Statue!')),
+                      );
+                    },
+                    //
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        'assets/icons/feathered_serpent_statue.png',
+                        width: 80,
+                        height: 80,
+                      ),
+                    )
+                    //
+
+                    ),
               ),
             ),
 
           //  Inventory Bar at the Bottom
 
           Positioned(
-            bottom: 20,
-            left: 20,
-            right: 20,
-            child: Container(
-              height: 80,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children:
-                    context.watch<GameStateManager>().inventory.map((item) {
-                  final iconPath = widget.inventoryIcons[item] ??
-                      'assets/icons/${item.toLowerCase().replaceAll(" ", "_")}.png';
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Container(
-                      width: 60,
-                      height: 60,
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                            color: Colors.lightGreenAccent, width: 2),
-                      ),
-                      child: Image.asset(
-                        iconPath,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
+              bottom: 30,
+              left: 20,
+              right: 20,
+              child: Tooltip(
+                message: "There're 3 secret objects needs to Collected!",
+                child: Container(
+                  height: 80,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children:
+                        context.watch<GameStateManager>().inventory.map((item) {
+                      final iconPath = widget.inventoryIcons[item] ??
+                          'assets/icons/${item.toLowerCase().replaceAll(" ", "_")}.png';
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.brown, width: 2),
+                          ),
+                          child: Image.asset(
+                            iconPath,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              )),
 // Unlock the Puzzle if all required items collected
           if (hasAllRequiredItems(context))
-            Positioned.fill(
-              top: 240,
-              left: 20,
+            Positioned(
+              bottom: screenHeight * 0.20,
+              left: screenWidth * 0.40,
+              //bottom: 200,
+              //left: 100,
               child: Column(
                 children: [
-                  JungleEntranceWidget(),
+                  FadeSceneTransition(
+                    visible: true,
+                    child: Center(
+                      child: JungleEntranceWidget(),
+                    ),
+                  ),
+                  //PuzzleHintWidget(),
                 ],
               ),
             ),
