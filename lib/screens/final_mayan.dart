@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mayan_level1/screens/angkor_menu.dart';
+import 'package:mayan_level1/screens/exit_to_main.dart';
 import 'package:mayan_level1/text_style.dart';
 //import 'package:audioplayers/audioplayers.dart';
 
@@ -76,6 +77,7 @@ class MayanFinalScene extends StatelessWidget {
               ),
             ),
           ),
+          ExitToMenuIcon(),
         ],
       ),
     );

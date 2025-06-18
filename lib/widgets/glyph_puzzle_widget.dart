@@ -55,6 +55,14 @@ class _GlyphPuzzleWidgetState extends State<GlyphPuzzleWidget> {
               );
             }).toList(),
           ),
+          Text(
+            "Hint: 1-Dog,2-Bird,3-Snake,4-Monkey",
+            style: TextStyle(
+              fontSize: 16,
+              fontFamily: 'DM_Sans',
+              color: Colors.black,
+            ),
+          ),
           SizedBox(height: 20),
           if (gameState.userGlyphOrder.isNotEmpty)
             ElevatedButton(

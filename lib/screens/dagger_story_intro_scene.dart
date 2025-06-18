@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mayan_level1/screens/exit_to_main.dart';
 import 'package:mayan_level1/screens/jungle_entrance.dart';
-import 'package:mayan_level1/text_style.dart';
 
 class DaggerStoryIntroScene extends StatelessWidget {
   //final VoidCallback onCollected;
@@ -30,6 +30,8 @@ class DaggerStoryIntroScene extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
+          ExitToMenuIcon(),
+
           // Background  desktop
           Positioned.fill(
               child: Image.asset(
@@ -72,6 +74,25 @@ class DaggerStoryIntroScene extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown.shade800.withOpacity(0.9),
+                      foregroundColor: Colors.amberAccent,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32, vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                        side: const BorderSide(
+                            color: Colors.amberAccent, width: 1.5),
+                      ),
+                      elevation: 6,
+                      shadowColor: Colors.white,
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'CinzelDecorative',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     onPressed: () {
                       fadeToScene(
                           context,
@@ -84,19 +105,21 @@ class DaggerStoryIntroScene extends StatelessWidget {
                       //Navigator.pushNamed(context, '/jungle_entrance');
                     },
                     child: Text(
-                      "Find out the Dagger",
-                      style: elevatedButtonTextStyle,
+                      "Find out and Collect the Itams ",
+                      style: TextStyle(
+                        fontFamily: 'CinzelDecorative',
+                        fontSize: 16,
+                        color: Colors.amberAccent,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ),
+          ExitToMenuIcon(),
         ],
       ),
     );
   }
 }
-//🔗 How to Connect It
-
-//In JungleEntranceScene, after player interacts with the Dagger hotspot:

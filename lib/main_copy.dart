@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mayan_level1/screens/menu_scene.dart';
 import 'package:provider/provider.dart';
 import 'package:mayan_level1/game_state_maneger.dart';
 import 'package:mayan_level1/screens/dagger_story_intro_scene.dart';
@@ -34,9 +33,9 @@ class MayanEscapeGame extends StatelessWidget {
       title: 'Mayan Escape',
       initialRoute: '/',
       routes: {
-        '/': (context) => MenuScene(), //TO-DO
+        //'/': (context) => MenuScene(),//TO-DO
 
-        '/IntroScene': (context) => MayanIntroScene(), //Done
+        '/': (context) => MayanIntroScene(), //Done
 
         '/jungle_banner': (context) => JungleIntroScene(),
         //DaggerStoryIntroScene

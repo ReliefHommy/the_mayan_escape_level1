@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mayan_level1/screens/exit_to_main.dart';
 import 'package:provider/provider.dart';
-import 'package:mayan_level1/effects/water_hint.dart';
 import 'package:mayan_level1/puzzle_popup.dart';
 import '../../../game_state_maneger.dart';
 import '../../../widgets/pressure_plate_puzzle.dart';
@@ -53,13 +53,15 @@ class _WaterPuzzleRoomScreenState extends State<WaterPuzzleRoomScreen> {
           ))),
 
           // Inventory -- Water Basin--Poor the watter to activate Golden key
-
-          Positioned(
-            top: screenHeight * 0.60,
-            left: screenWidth * 0.25,
-            child: Tooltip(
-              message: "A Water Basin!",
-              child: GestureDetector(
+          if (!context
+              .watch<GameStateManager>()
+              .isPuzzleSolved('water_offering'))
+            Positioned(
+              top: screenHeight * 0.60,
+              left: screenWidth * 0.25,
+              child: Tooltip(
+                message: "A Water Basin!",
+                child: GestureDetector(
                   onTap: () {
                     //To DO:selectedPuzzle = 'water_offering';
                     showDialog(
@@ -73,25 +75,30 @@ class _WaterPuzzleRoomScreenState extends State<WaterPuzzleRoomScreen> {
                         .read<GameStateManager>()
                         .markPuzzleAsSolved('water_offering');
                   },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                  //water_basin_bg
+
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(
+                          color: Colors.brown.withOpacity(0.2), width: 2),
+                    ),
                     child: Image.asset(
                       'assets/icons/water_basin_bg.png',
-                      width: 80,
-                      height: 80,
+                      width: 60,
+                      height: 60,
                     ),
-                  )),
+                  ),
+                ),
+              ),
             ),
-          ),
 
           // Inventory -- Hidden Passage Key--
-          Positioned(
-            top: screenHeight * 0.10,
-            left: screenWidth * 0.65,
-            child: Column(
-              children: [WaterHint()],
-            ),
-          ),
+
           if (context
               .watch<GameStateManager>()
               .isPuzzleSolved('water_offering'))
@@ -139,7 +146,7 @@ class _WaterPuzzleRoomScreenState extends State<WaterPuzzleRoomScreen> {
                   height: 80,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListView(
@@ -155,7 +162,7 @@ class _WaterPuzzleRoomScreenState extends State<WaterPuzzleRoomScreen> {
                           height: 60,
                           padding: EdgeInsets.all(6),
                           decoration: BoxDecoration(
-                            color: Colors.brown.withOpacity(0.2),
+                            color: Colors.white.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Colors.brown, width: 2),
                           ),
@@ -186,6 +193,7 @@ class _WaterPuzzleRoomScreenState extends State<WaterPuzzleRoomScreen> {
                 ),
               ),
             ),
+          ExitToMenuIcon(),
         ],
       ),
     );

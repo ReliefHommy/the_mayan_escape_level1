@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mayan_level1/screens/exit_to_main.dart';
 import 'package:mayan_level1/screens/jungle_intro_scene.dart';
-import 'package:mayan_level1/text_style.dart';
+import 'package:mayan_level1/widgets/music_player.dart';
+
+//MayanIntroScene
 
 //MayanIntroScene
 
@@ -77,20 +80,46 @@ class MayanIntroScene extends StatelessWidget {
                   ),
                   const SizedBox(height: 40),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown.shade800.withOpacity(0.9),
+                      foregroundColor: Colors.amberAccent,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32, vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                        side: const BorderSide(
+                            color: Colors.amberAccent, width: 1.5),
+                      ),
+                      elevation: 6,
+                      shadowColor: Colors.white,
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'CinzelDecorative',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     onPressed: () {
                       fadeToScene(context, JungleIntroScene());
                     },
                     child: Text(
                       "Begin Your Journey!",
-                      style: elevatedButtonTextStyle,
+                      style: TextStyle(
+                        fontFamily: 'CinzelDecorative',
+                        fontSize: 16,
+                        color: Colors.amberAccent,
+                      ),
                     ),
                   ),
+                  MusicPlayerButton()
                 ],
               ),
             ),
           ),
+          ExitToMenuIcon(),
         ],
       ),
     );
   }
 }
+//

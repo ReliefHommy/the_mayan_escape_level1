@@ -22,7 +22,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  provider: ^6.1.5  
+  provider: ^6.1.5
+  audioplayers: ^6.5.0  
  
 
   flutter_lints: ^5.0.0
@@ -54,6 +55,7 @@ flutter:
       - assets/images/rotating_scene_bg.jpg
       - assets/images/temple_bg.png
       - assets/images/temple_entrance.jpg
+      - assets/images/menu_scene.jpg
       - assets/images/temple_interior_glyphs.jpg
       - assets/images/torch_bg.png
       - assets/images/water_intro_bg.png
@@ -75,6 +77,9 @@ flutter:
       - assets/icons/water_basin.png
       - assets/icons/water_holder_bg.png
       - assets/icons/water_holder.png
+
+      #audio
+      - assets/audio/mayan_intro.mp3
    
 
   fonts:

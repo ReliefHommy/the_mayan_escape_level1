@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mayan_level1/effects/reward_glyph.dart';
-import 'package:mayan_level1/text_style.dart';
 
 class OpenWaterRoomWidget extends StatelessWidget {
   const OpenWaterRoomWidget({super.key});
@@ -17,17 +15,58 @@ class OpenWaterRoomWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Well Done!",
-              style: headingTextStyle, textAlign: TextAlign.center),
-          RewardGlyph(),
+          //
+          Container(
+            padding: const EdgeInsets.all(20),
+            margin: const EdgeInsets.all(40),
+            decoration: BoxDecoration(
+              color: Colors.brown.shade900.withOpacity(0.9),
+              borderRadius: BorderRadius.circular(16),
+              border:
+                  Border.all(color: Colors.white.withOpacity(0.9), width: 2),
+            ),
+            child: const Text(
+              "You have unlocked the Water Room!",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+                fontFamily: 'Georgia',
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          //
           SizedBox(height: 20),
           ElevatedButton(
+            //
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.brown.shade800.withOpacity(0.9),
+              foregroundColor: Colors.amberAccent,
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18),
+                side: const BorderSide(color: Colors.amberAccent, width: 1.5),
+              ),
+              elevation: 6,
+              shadowColor: Colors.white,
+              textStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontFamily: 'CinzelDecorative',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            //
             onPressed: () {
               Navigator.pushNamed(context, '/wateroffer');
             },
             child: Text(
               "Enter the Water Room!",
-              style: elevatedButtonTextStyle,
+              style: TextStyle(
+                fontFamily: 'CinzelDecorative',
+                fontSize: 16,
+                color: Colors.amberAccent,
+              ),
             ),
           ),
         ],
@@ -35,4 +74,3 @@ class OpenWaterRoomWidget extends StatelessWidget {
     );
   }
 }
-//Image.asset('assets/temple_entrance_widget.jpg', width: 100);

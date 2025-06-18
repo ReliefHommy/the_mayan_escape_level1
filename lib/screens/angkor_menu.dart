@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mayan_level1/effects/angkor_entry.dart';
 import 'package:mayan_level1/fade_scene_transit.dart';
+import 'package:mayan_level1/screens/exit_to_main.dart';
 
 //Simple starter code for Level2Scene:
 class AngkorMenu extends StatelessWidget {
@@ -43,10 +44,11 @@ class AngkorMenu extends StatelessWidget {
                     child: AngkorEntry(),
                   ),
                 ),
-                //PuzzleHintWidget(),
+                // ExitToMenuIcon()
               ],
             ),
           ),
+          ExitToMenuIcon()
         ],
       ),
     );

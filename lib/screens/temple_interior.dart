@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mayan_level1/screens/exit_to_main.dart';
 import 'package:provider/provider.dart';
-import 'package:mayan_level1/effects/glyph_hint.dart';
 import 'package:mayan_level1/fade_scene_transit.dart';
 import 'package:mayan_level1/widgets/glyph_puzzle_widget.dart';
 import 'package:mayan_level1/widgets/open_water_room_widget.dart';
@@ -49,7 +49,7 @@ class _TempleInteriorState extends State<TempleInterior> {
             ),
           ))),
 
-          //   3-Inventory ---Hidden Passage Key---after Glyph puzzle solved!
+          //   3-Inventory ---Hidden Passage Key appear---after Glyph puzzle solved!
           if (context.watch<GameStateManager>().isPuzzleSolved('animal_glyph'))
             Positioned(
               top: screenHeight * 0.50,
@@ -62,61 +62,63 @@ class _TempleInteriorState extends State<TempleInterior> {
                   onTap: () {
                     context.read<GameStateManager>().collectItem('Passed Key');
                   },
-                  child: Image.asset(
-                    'assets/icons/passed_key.png',
-                    width: 80,
-                    height: 80,
+
+                  //
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(
+                          color: Colors.brown.withOpacity(0.2), width: 2),
+                    ),
+                    child: Image.asset(
+                      'assets/icons/passed_key.png',
+                      width: 60,
+                      height: 60,
+                    ),
                   ),
+
+                  //
                 ),
               ),
             ),
-          Positioned(
-            top: screenHeight * 0.55,
-            left: screenWidth * 0.15,
-            //top: 350,
-            //left: 80,
-            child: Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    Colors.yellowAccent.withOpacity(0.8),
-                    Colors.lightGreenAccent.withOpacity(0.4),
-                    Colors.transparent,
-                  ],
-                  stops: const [0.0, 0.6, 1.0],
-                ),
-              ),
-              child:
-                  const Icon(Icons.auto_awesome, size: 40, color: Colors.white),
-            ),
-          ),
+
 // Water blow appearen when the golden key kollected!
           //   4-Inventory ---Water Bowl---
           if (context.watch<GameStateManager>().hasItem('Passed Key'))
             Positioned(
               top: screenHeight * 0.70, // 30% from the top
               left: screenWidth * 0.10, // 10% from the left
-              //top: 500,
-              //left: 180,
+
               child: Tooltip(
                 message: "A Water Holder!",
                 child: GestureDetector(
-                    onTap: () {
-                      context
-                          .read<GameStateManager>()
-                          .collectItem('Water Holder');
-                    },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        'assets/icons/water_holder.png',
-                        width: 80,
-                        height: 80,
-                      ),
-                    )),
+                  onTap: () {
+                    context
+                        .read<GameStateManager>()
+                        .collectItem('Water Holder');
+                  },
+                  //water_holder
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(
+                          color: Colors.brown.withValues(), width: 2),
+                    ),
+                    child: Image.asset(
+                      'assets/icons/water_holder.png',
+                      width: 60,
+                      height: 60,
+                    ),
+                  ),
+                ),
               ),
             ),
 
@@ -126,8 +128,7 @@ class _TempleInteriorState extends State<TempleInterior> {
             Positioned(
               top: screenHeight * 0.60, // 30% from the top
               left: screenWidth * 0.40, // 10% from the left
-              //top: 340,
-              //left: 300,
+
               child: Tooltip(
                 message: "Animal Glyph Puzzle",
                 child: GestureDetector(
@@ -146,21 +147,29 @@ class _TempleInteriorState extends State<TempleInterior> {
                       ),
                     );
                   },
-                  child: Image.asset(
-                    'assets/icons/animal_glyph.png',
-                    width: 50,
-                    height: 50,
+                  //
+                  //
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(
+                          color: Colors.brown.withOpacity(0.2), width: 2),
+                    ),
+                    child: Image.asset(
+                      'assets/icons/animal_glyph.png',
+                      width: 60,
+                      height: 60,
+                    ),
                   ),
+
+                  //
                 ),
               ),
             ),
-          if (!context.watch<GameStateManager>().isPuzzleSolved('animal_glyph'))
-            Positioned(
-                top: screenHeight * 0.55, // 30% from the top
-                left: screenWidth * 0.45, //
-                child: Column(
-                  children: [GlyphHint()],
-                )),
 
           //  Inventory Bar at the Bottom
 
@@ -174,7 +183,7 @@ class _TempleInteriorState extends State<TempleInterior> {
                   height: 80,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListView(
@@ -190,7 +199,7 @@ class _TempleInteriorState extends State<TempleInterior> {
                           height: 60,
                           padding: EdgeInsets.all(6),
                           decoration: BoxDecoration(
-                            color: Colors.brown.withOpacity(0.2),
+                            color: Colors.white.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Colors.brown, width: 2),
                           ),
@@ -220,6 +229,7 @@ class _TempleInteriorState extends State<TempleInterior> {
                 ],
               ),
             ),
+          ExitToMenuIcon(),
         ],
       ),
     );

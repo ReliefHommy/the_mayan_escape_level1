@@ -40,7 +40,7 @@ class _WaterOfferingComicSceneState extends State<WaterOfferingComicScene> {
 
     return Scaffold(
       //color: Colors.white.withOpacity(0.5),
-      backgroundColor: Colors.black.withOpacity(0.5),
+      backgroundColor: Colors.black.withValues(),
       body: GestureDetector(
         onTap: _nextPanel,
         child: Stack(
@@ -54,7 +54,7 @@ class _WaterOfferingComicSceneState extends State<WaterOfferingComicScene> {
             ),
 
             // Dark overlay
-            Container(color: Colors.black.withOpacity(0.1)),
+            Container(color: Colors.black.withValues()),
 
             // Text box
             Positioned(
@@ -66,7 +66,7 @@ class _WaterOfferingComicSceneState extends State<WaterOfferingComicScene> {
                   child: Container(
                     padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.black.withValues(),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(

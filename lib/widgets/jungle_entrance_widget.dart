@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mayan_level1/effects/reward_inventory.dart';
 import 'package:mayan_level1/screens/rotating_stone_intro_scene.dart';
-import 'package:mayan_level1/text_style.dart';
 
 class JungleEntranceWidget extends StatelessWidget {
   //
@@ -36,20 +34,48 @@ class JungleEntranceWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Well Done!",
-              style: headingTextStyle, textAlign: TextAlign.center),
-          RewardInventory(),
+          //
+          Container(
+            padding: const EdgeInsets.all(20),
+            margin: const EdgeInsets.all(40),
+            decoration: BoxDecoration(
+              color: Colors.brown.shade900.withOpacity(0.9),
+              borderRadius: BorderRadius.circular(16),
+              border:
+                  Border.all(color: Colors.white.withOpacity(0.9), width: 2),
+            ),
+            child: const Text(
+              "You have unlocked the Entrance!",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+                fontFamily: 'Georgia',
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          //
           SizedBox(height: 20),
           ElevatedButton(
+            //
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.deepPurple,
-              elevation: 6,
-              shadowColor: Colors.purpleAccent,
+              backgroundColor: Colors.brown.shade800.withOpacity(0.9),
+              foregroundColor: Colors.amberAccent,
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(18),
+                side: const BorderSide(color: Colors.amberAccent, width: 1.5),
+              ),
+              elevation: 6,
+              shadowColor: Colors.white,
+              textStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontFamily: 'CinzelDecorative',
+                fontWeight: FontWeight.bold,
               ),
             ),
+            //
             onPressed: () {
               fadeToScene(
                   context,
@@ -60,7 +86,11 @@ class JungleEntranceWidget extends StatelessWidget {
             },
             child: Text(
               "Enter the Temple",
-              style: elevatedButtonTextStyle,
+              style: TextStyle(
+                fontFamily: 'CinzelDecorative',
+                fontSize: 16,
+                color: Colors.amberAccent,
+              ),
             ),
           ),
         ],

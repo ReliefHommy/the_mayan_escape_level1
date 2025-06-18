@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mayan_level1/screens/exit_to_main.dart';
 import 'dart:async';
 
 import 'package:mayan_level1/text_style.dart';
 
+//RotatingStoneIntroScene
 //RotatingStoneIntroScene
 
 class RotatingStoneIntroScene extends StatefulWidget {
@@ -84,7 +86,7 @@ class _RotatingStoneIntroSceneState extends State<RotatingStoneIntroScene> {
           Positioned.fill(
               child: Center(
                   child: SizedBox(
-            width: 500,
+            width: 700,
             child: Image.asset(
               'assets/images/temple_entrance.jpg',
               fit: BoxFit.cover,
@@ -109,26 +111,78 @@ class _RotatingStoneIntroSceneState extends State<RotatingStoneIntroScene> {
                   const SizedBox(height: 40),
                   if (!_isTyping && _currentLine < storyLines.length - 1)
                     ElevatedButton(
+                      //
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.brown.shade800.withOpacity(0.9),
+                        foregroundColor: Colors.amberAccent,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                          side: const BorderSide(
+                              color: Colors.amberAccent, width: 1.5),
+                        ),
+                        elevation: 6,
+                        shadowColor: Colors.white,
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'CinzelDecorative',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      //
+
                       onPressed: _nextLine,
                       child: Text(
                         "Continue",
-                        style: elevatedButtonTextStyle,
+                        style: TextStyle(
+                          fontFamily: 'CinzelDecorative',
+                          fontSize: 16,
+                          color: Colors.amberAccent,
+                        ),
                       ),
                     ),
                   if (!_isTyping && _currentLine == storyLines.length - 1)
                     ElevatedButton(
+                      //
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.brown.shade800.withOpacity(0.9),
+                        foregroundColor: Colors.amberAccent,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                          side: const BorderSide(
+                              color: Colors.amberAccent, width: 1.5),
+                        ),
+                        elevation: 6,
+                        shadowColor: Colors.white,
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'CinzelDecorative',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      //
                       onPressed: () {
                         Navigator.pushNamed(context, '/entrance');
                       },
                       child: Text(
                         "Tap to Begin Puzzle",
-                        style: elevatedButtonTextStyle,
+                        style: TextStyle(
+                          fontFamily: 'CinzelDecorative',
+                          fontSize: 16,
+                          color: Colors.amberAccent,
+                        ),
                       ),
                     ),
                 ],
               ),
             ),
           ),
+          ExitToMenuIcon(),
         ],
       ),
     );

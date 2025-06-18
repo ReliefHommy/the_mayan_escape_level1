@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mayan_level1/screens/exit_to_main.dart';
 import 'package:provider/provider.dart';
-import 'package:mayan_level1/effects/rotating_hint.dart';
 import 'package:mayan_level1/widgets/temple_entrance_widget.dart';
 import '../../../game_state_maneger.dart';
 import '../../../widgets/puzzle_rotate_stone.dart';
@@ -48,41 +48,48 @@ class _TempleEntranceState extends State<TempleEntrance> {
             ),
           ))),
 
-          // ---Rotating Stone Dial--
+          if (!context.watch<GameStateManager>().isPuzzleSolved(
+              'rotating_stone_dial')) //remove Rotating Stonne Dial
 
-          Positioned(
-            //top: 400,
-            //left: 150,
-            top: screenHeight * 0.30, // 30% from the top
-            left: screenWidth * 0.20,
-            child: Tooltip(
-              message: "Rotating Stone Dial",
-              child: GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => StoneDialPuzzle(onSolved: () {
-                            context
-                                .read<GameStateManager>()
-                                .markPuzzleAsSolved('rotating_stone_dial');
-                          }));
-                },
-                child: Image.asset(
-                  'assets/icons/rotating_stone_icon.png',
-                  width: 80,
-                  height: 80,
+            Positioned(
+              top: screenHeight * 0.55, // 30% from the top
+              left: screenWidth * 0.50,
+              child: Tooltip(
+                message: "Rotating Stone Dial",
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => StoneDialPuzzle(onSolved: () {
+                              context
+                                  .read<GameStateManager>()
+                                  .markPuzzleAsSolved('rotating_stone_dial');
+                            }));
+                  },
+                  //assets/icons/rotating_stone_icon.png
+                  //
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(
+                          color: Colors.brown.withOpacity(0.2), width: 2),
+                    ),
+                    child: Image.asset(
+                      'assets/icons/rotating_stone_icon.png',
+                      width: 60,
+                      height: 60,
+                    ),
+                  ),
+
+                  //
                 ),
               ),
             ),
-          ),
 
-          Positioned(
-              top: screenHeight * 0.30, // 30% from the top
-              left: screenWidth * 0.30, //
-              child: Column(
-                children: [RotatingHint()],
-              )),
-//PuzzleHintWidget(),
           //  Inventory Bar at the Bottom
 
           Positioned(
@@ -96,7 +103,7 @@ class _TempleEntranceState extends State<TempleEntrance> {
                   height: 80,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListView(
@@ -112,7 +119,7 @@ class _TempleEntranceState extends State<TempleEntrance> {
                           height: 60,
                           padding: EdgeInsets.all(6),
                           decoration: BoxDecoration(
-                            color: Colors.brown.withOpacity(0.2),
+                            color: Colors.white.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Colors.brown, width: 2),
                           ),
@@ -126,7 +133,7 @@ class _TempleEntranceState extends State<TempleEntrance> {
                   ),
                 ),
               )),
-          //if (context.watch<GameStateManager>().isPuzzleSolved('animal_glyph'))
+          //After Rotating is successfully!
           if (context
               .watch<GameStateManager>()
               .isPuzzleSolved('rotating_stone_dial'))
@@ -139,6 +146,7 @@ class _TempleEntranceState extends State<TempleEntrance> {
                 ],
               ),
             ),
+          ExitToMenuIcon(),
         ],
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mayan_level1/screens/dagger_story_intro_scene.dart';
-import 'package:mayan_level1/text_style.dart';
+import 'package:mayan_level1/screens/exit_to_main.dart';
 
 //MayanIntroScene
 
@@ -27,6 +27,8 @@ class JungleIntroScene extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final double screenWidth = MediaQuery.of(context).size.width;
+    //final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -71,21 +73,48 @@ class JungleIntroScene extends StatelessWidget {
                   ),
                   //const SizedBox(height: 20),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown.shade800.withOpacity(0.9),
+                      foregroundColor: Colors.amberAccent,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32, vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                        side: const BorderSide(
+                            color: Colors.amberAccent, width: 1.5),
+                      ),
+                      elevation: 6,
+                      shadowColor: Colors.white,
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'CinzelDecorative',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     onPressed: () {
                       fadeToScene(context, DaggerStoryIntroScene());
                       //Navigator.pushNamed(context, '/jungle_entrance');
                     },
                     child: Text(
                       "Your Story Begin!",
-                      style: elevatedButtonTextStyle,
+                      style: TextStyle(
+                        fontFamily: 'CinzelDecorative',
+                        fontSize: 16,
+                        color: Colors.amberAccent,
+                      ),
                     ),
                   ),
+                  //ExitToMenuIcon()
                 ],
               ),
             ),
           ),
+          ExitToMenuIcon(),
         ],
       ),
     );
   }
 }
+//
+//

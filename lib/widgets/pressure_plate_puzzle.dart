@@ -47,7 +47,7 @@ class _PressurePlatePuzzleState extends State<PressurePlatePuzzle> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-              "Place the correct artifacts on the stone pedestals to unlock the door.",
+              "Place the 3 correct artifacts on the stone pedestals to unlock the door.",
               style: TextStyle(
                 fontSize: 14.0,
                 fontFamily: 'DM_Sans',
@@ -91,6 +91,13 @@ class _PressurePlatePuzzleState extends State<PressurePlatePuzzle> {
               );
             }).toList(),
           ),
+          Text("Hint!- 1.Feathered S. Statue 2.Hidden P. Key 3._ Key",
+              style: TextStyle(
+                fontSize: 14.0,
+                fontFamily: 'DM_Sans',
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              )),
           SizedBox(height: 12),
           Text(
             placedItems.length == 3 &&

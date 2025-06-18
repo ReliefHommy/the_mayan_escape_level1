@@ -62,8 +62,8 @@ class _PuzzleHintWidgetState extends State<PuzzleHintWidget>
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          Colors.yellowAccent.withOpacity(0.8),
-                          Colors.orange.withOpacity(0.4),
+                          Colors.yellowAccent.withValues(),
+                          Colors.orange.withValues(),
                           Colors.transparent,
                         ],
                         stops: const [0.0, 0.6, 1.0],
@@ -88,7 +88,7 @@ class _PuzzleHintWidgetState extends State<PuzzleHintWidget>
                 padding: const EdgeInsets.all(20),
                 margin: const EdgeInsets.all(40),
                 decoration: BoxDecoration(
-                  color: Colors.brown.withOpacity(0.5),
+                  color: Colors.brown.withValues(),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: Colors.redAccent, width: 2),
                 ),
